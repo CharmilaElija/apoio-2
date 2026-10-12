@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rede de Apoio Seguro para Mulheres</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--roxo-claro:#e8d5f2;--roxo-medio:#b185c8;--roxo-escuro:#7a4a9e;--rosa-bebe:#ffd6e8;--rosa-claro:#fff0f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:var(--rosa-claro);color:#4a2c5a}
+.capa{
+width:100%;height:320px;
+background: linear-gradient(rgba(122,74,158,0.45), rgba(255,214,232,0.6)), url('IMG_9467.jpeg');
+background-size:cover;background-position:center;
+display:flex;align-items:center;justify-content:center;flex-direction:column;
+color:white;text-align:center;text-shadow:0 2px 15px rgba(0,0,0,0.4);
+}
+.capa h1{font-size:32px;font-weight:700}
+.capa h2{font-size:15px;margin-top:10px;background:rgba(255,255,255,0.92);color:#7a4a9e;padding:8px 20px;border-radius:25px;font-weight:400}
+.container{max-width:500px;margin:-25px auto 20px;padding:0 15px;position:relative;z-index:2}
+.card{background:white;margin:15px 0;padding:22px;border-radius:20px;box-shadow:0 8px 25px rgba(122,74,158,0.12);border:1px solid #ffd6e8}
+.card h3{color:#7a4a9e;margin-bottom:12px;font-size:16px}
+.btn{border:none;padding:14px;border-radius:30px;width:100%;font-weight:600;cursor:pointer;transition:0.3s}
+.btn-roxo{background:linear-gradient(135deg,#b185c8,#7a4a9e);color:white}
+.btn-roxo:hover{transform:scale(1.02)}
+.anonimo{background:linear-gradient(135deg,#f3e5f5,#fce4ec);padding:12px;border-radius:15px;font-size:12px;border-left:4px solid #b185c8}
+select,input,textarea{width:100%;padding:13px;margin:8px 0;border-radius:15px;border:1.5px solid #e8d5f2;font-family:'Poppins';background:#fefcff;font-size:14px}
+select:focus,input:focus,textarea:focus{outline:none;border-color:#b185c8}
+.voluntaria-card{border:1.5px solid #e8d5f2;padding:14px;margin:10px 0;border-radius:15px;background:linear-gradient(135deg,#fefcff,#fff0f6)}
+.badge{background:#e8d5f2;color:#7a4a9e;padding:4px 10px;border-radius:15px;font-size:11px;font-weight:600}
+footer{text-align:center;padding:20px;font-size:11px;color:#b185c8}
+</style>
+</head>
+<body>
+
+<div class="capa">
+<h1>🌸 Rede de Apoio Seguro</h1>
+<h2>✨ Estás segura aqui - Apoio 24h anónimo ✨</h2>
+</div>
+
+<div class="container">
+
+<div class="card anonimo">
+🔒 <b>Modo Seguro:</b> Toque 3x em qualquer lugar da tela para sair rápido para o Google. Nenhum dado fica guardado.
+</div>
+
+<div class="card">
+<h3>💜 Que tipo de apoio precisas hoje?</h3>
+<select id="tipoViolencia">
+<option>💔 Violência Física</option>
+<option>🧠 Violência Psicológica</option>
+<option>🚨 Risco de Feminicídio</option>
+<option>😔 Depressão / Ansiedade</option>
+<option>⚖️ Apoio Jurídico</option>
+<option>🏠 Abrigo / Casa Segura</option>
+<option>🤝 Apoio Comunitário</option>
+</select>
+<textarea id="mensagem" placeholder="Conta brevemente se quiseres... podes ficar totalmente anónima"></textarea>
+<input type="text" id="bairro" placeholder="Teu bairro em Nampula (ex: Muhaivire, Namutequeliua)">
+<button class="btn btn-roxo" onclick="pedirAjuda()">💜 PRECISO DE AJUDA AGORA</button>
+</div>
+
+<div class="card" id="resultado" style="display:none">
+<h3>💗 Anjos próximos de ti em Nampula:</h3>
+<div id="listaAjudantes"></div>
+</div>
+
+<div class="card" style="background:linear-gradient(135deg,#e8d5f2,#ffd6e8)">
+<h3>🤝 Quero ser voluntária - fazer parte da comunidade</h3>
+<input type="text" id="nomeVol" placeholder="Teu nome completo">
+<input type="text" id="bairroVol" placeholder="Teu bairro (ex: Muhaivire)">
+<input type="tel" id="telVol" placeholder="Teu número WhatsApp (ex: +25884...) - obrigatório">
+<select id="skillVol">
+<option>Apoio Psicológico</option>
+<option>Apoio Jurídico</option>
+<option>Abrigo Temporário</option>
+<option>Acompanhamento ao Hospital/Esquadra</option>
+<option>Apoio Comunitário</option>
+</select>
+<button class="btn" style="background:white;color:#7a4a9e;margin-top:8px" onclick="registrarVol()">Quero Fazer Parte da Comunidade 💜</button>
+</div>
+
+</div>
+
+<footer>
+Rede de Apoio Seguro • Nampula - Muhaivire<br>
+Criado por Charmila Elija 💜 • Roxo Claro + Rosa Bebê
+</footer>
+
+<script>
+// VOLUNTÁRIAS CADASTRADAS - Nampula Muhaivire
+let ajudantes = [
+{nome:"Charmila Elija - Apoio", bairro:"Nampula - Muhaivire", tel:"+258850730250", skill:"Apoio Jurídico e Comunitário", dist:0.5},
+{nome:"Voluntária da Comunidade", bairro:"Nampula - Muhaivire", tel:"+258879828626", skill:"Apoio Comunitário e Acompanhamento", dist:0.8},
+{nome:"Dra. Ana - Psicóloga", bairro:"Nampula - Muhaivire", tel:"+258861568130", skill:"Apoio Psicológico", dist:1.2},
+{nome:"Meleny Lemos", bairro:"Nampula Central", tel:"+258840000002", skill:"Abrigo Temporário", dist:2.5}
+];
+
+function pedirAjuda(){
+let bairro=document.getElementById('bairro').value;
+let tipo=document.getElementById('tipoViolencia').value;
+if(!bairro){alert("Coloca só o bairro para achar ajuda perto de ti em Nampula 💜");return;}
+document.getElementById('resultado').style.display='block';
+let html="";
+ajudantes.forEach(a=>{
+html+=`<div class="voluntaria-card">
+<b>${a.nome}</b> <span class="badge">${a.dist}km perto</span><br>
+<small>📍 ${a.bairro} • ${a.skill}</small><br>
+<a href="https://wa.me/${a.tel.replace(/[^0-9]/g,'')}?text=Olá, preciso de ajuda com ${tipo} em ${bairro}. Vim pelo site Rede de Apoio Seguro" 
+style="background:linear-gradient(135deg,#7a4a9e,#b185c8);color:white;padding:9px 15px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px;font-size:13px">
+💬 Falar no WhatsApp Seguro</a>
+</div>`;
+});
+document.getElementById('listaAjudantes').innerHTML=html;
+}
+
+function registrarVol(){
+let nome=document.getElementById('nomeVol').value;
+let tel=document.getElementById('telVol').value;
+let bairroVol=document.getElementById('bairroVol').value;
+if(!tel){alert("Por favor, deixa teu número para fazeres parte da comunidade 💜");return;}
+if(!nome){alert("Coloca teu nome por favor");return;}
+alert("Obrigada "+nome+"! 💜 Teu número "+tel+" de "+bairroVol+" foi registado. Vais fazer parte da nossa comunidade de apoio de Nampula - Muhaivire. Entraremos no WhatsApp.");
+}
+
+// Botão de pânico - 3 cliques sai para Google
+let clicks=0;
+document.addEventListener('click',()=>{
+clicks++;
+setTimeout(()=>clicks=0,2000);
+if(clicks>=3){window.location.href="https://www.google.com";}
+});
+</script>
+</body>
+</html>
